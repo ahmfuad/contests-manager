@@ -13,5 +13,9 @@
     "nconf": "^0.10.0",
     "passport": "^0.4.0",
     "passport-vkontakte": "^0.3.2"
+  },
+  "scripts": {
+    "connect-db": "mongo ds139219.mlab.com:39219/contestmanager -u contestuser -p contestpassword123"
+    "start": "node app.js"
   }
 }
