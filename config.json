@@ -1,7 +1,7 @@
 {
   "database":{
-    "cloud-uri": "mongodb://contestuser:contestpassword123@ds139219.mlab.com:39219/contestmanager",
-    "uri": "mongodb://localhost:27017/contest"
+    "uri": "mongodb://contestuser:contestpassword123@ds139219.mlab.com:39219/contestmanager",
+    "local-uri": "mongodb://localhost:27017/contest"
   },
   "vk":{
     "app_id": "6435362",
