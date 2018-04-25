@@ -4,7 +4,7 @@ let findOrCreate = require('mongoose-find-or-create');
 let Schema = mongoose.Schema;
 
 const WorkSchema = new mongoose.Schema({
-    contest: { type: Number, ref: 'Contest' },
+    contest: { type: Schema.Types.ObjectId, ref: 'Contest' },
     likes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     name: String
 });

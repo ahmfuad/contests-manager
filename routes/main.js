@@ -1,4 +1,5 @@
 let Contests = require("../models/contest.js");
+let Types = require("../models/type");
 const limit = 10;
 
 module.exports = function (app) {
@@ -12,5 +13,4 @@ module.exports = function (app) {
                 res.send(contests);
             })
     });
-    app.get("/test", (req, res)=>res.send("test"));
 };
