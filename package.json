@@ -15,7 +15,7 @@
     "passport-vkontakte": "^0.3.2"
   },
   "scripts": {
-    "connect-db": "mongo ds139219.mlab.com:39219/contestmanager -u contestuser -p contestpassword123"
+    "connect-db": "mongo ds139219.mlab.com:39219/contestmanager -u contestuser -p contestpassword123",
     "start": "node app.js"
   }
 }
