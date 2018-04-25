@@ -1,0 +1,11 @@
+{
+  "database":{
+    "cloud-uri": "mongodb://contestuser:contestpassword123@ds139219.mlab.com:39219/contestmanager",
+    "uri": "mongodb://localhost:27017/contest"
+  },
+  "vk":{
+    "app_id": "6435362",
+    "secret": "VnuYUhtdZM6geLBbIGsX",
+    "callback": "http://localhost:3000/auth/vkontakte/callback"
+  }
+}
