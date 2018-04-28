@@ -6,6 +6,7 @@
   "vk":{
     "app_id": "6435362",
     "secret": "VnuYUhtdZM6geLBbIGsX",
-    "callback": "http://localhost:3000/auth/vkontakte/callback"
+    "callback": "http://contest-manager-nti.herokuapp.com/auth/vkontakte/callback",
+    "callback-local": "http://localhost:3000/auth/vkontakte/callback"
   }
 }
