@@ -8,10 +8,11 @@ module.exports = function (app) {
         {
             clientID:     nconf.get("vk:app_id"),
             clientSecret: nconf.get("vk:secret"),
-            callbackURL:  nconf.get("vk:callback")
+            callbackURL:  nconf.get("vk:callback"),
+            profileFields: ['first_name', 'last_mame']
         },
         function myVerifyCallbackFn(accessToken, refreshToken, params, profile, done) {
-            User.findOrCreate({ vkID: profile.id }, (err, result)=>{
+            User.findOrCreate({ vkID: profile.id, name: profile.displayName, profile_url: profile.profileUrl, avatar_url: profile.photos[0].value }, (err, result)=>{
                 done(null, result);
             })
         }

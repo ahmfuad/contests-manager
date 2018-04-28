@@ -2,7 +2,10 @@ let mongoose = require('mongoose');
 let findOrCreate = require('mongoose-find-or-create');
 
 const UserSchema = new mongoose.Schema({
-    vkID: { type: String }
+    vkID: String,
+    name: String,
+    avatar_url: String,
+    profile_url: String
 });
 UserSchema.plugin(findOrCreate);
 
