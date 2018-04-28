@@ -5,7 +5,7 @@ let passport = require("passport");
 let nconf = require("nconf");
 
 module.exports = function (app) {
-    mongoose.connect(nconf.get("database:local-uri"));
+    mongoose.connect(nconf.get("database:uri"));
 
     app.use(expressSession({
         secret: 'top-secret',
