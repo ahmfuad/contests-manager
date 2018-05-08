@@ -1,5 +1,6 @@
 let expressSession = require('express-session');
 let mongoose = require("mongoose");
+var favicon = require('serve-favicon');
 let MongoStore = require('connect-mongo')(expressSession);
 let passport = require("passport");
 let nconf = require("nconf");
@@ -24,6 +25,6 @@ module.exports = function (app) {
     app.use(passport.session());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended:true}));
-    app.use(express.static('public'))
-
+    app.use(express.static('public'));
+    app.use(favicon("./public/favicon.ico"));
 };
