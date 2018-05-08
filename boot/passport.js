@@ -4,11 +4,12 @@ let User = new require("../models/user.js");
 let VKontakteStrategy = require("passport-vkontakte").Strategy;
 
 module.exports = function (app) {
+    let callbackUri = process.argv.indexOf("--local") > -1 ? nconf.get("vk:callback-local") : nconf.get("vk:callback");
     passport.use(new VKontakteStrategy(
         {
             clientID:     nconf.get("vk:app_id"),
             clientSecret: nconf.get("vk:secret"),
-            callbackURL:  nconf.get("vk:callback"),
+            callbackURL:  callbackUri,
             profileFields: ['first_name', 'last_mame']
         },
         function myVerifyCallbackFn(accessToken, refreshToken, params, profile, done) {
