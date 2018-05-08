@@ -1,6 +1,6 @@
 let nconf = require("nconf");
 let passport = require("passport");
-let User = require("../models/user.js");
+let User = new require("../models/user.js");
 let VKontakteStrategy = require("passport-vkontakte").Strategy;
 
 module.exports = function (app) {
@@ -13,6 +13,7 @@ module.exports = function (app) {
         },
         function myVerifyCallbackFn(accessToken, refreshToken, params, profile, done) {
             User.findOrCreate({ vkID: profile.id, name: profile.displayName, profile_url: profile.profileUrl, avatar_url: profile.photos[0].value }, (err, result)=>{
+                if (err) console.log(err);
                 done(null, result);
             })
         }

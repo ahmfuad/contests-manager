@@ -2,7 +2,7 @@ let mongoose = require('mongoose');
 let findOrCreate = require('mongoose-find-or-create');
 
 const UserSchema = new mongoose.Schema({
-    vkID: String,
+    vkID: {type: String, required: true},
     name: String,
     avatar_url: String,
     profile_url: String
