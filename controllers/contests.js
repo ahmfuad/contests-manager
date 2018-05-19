@@ -19,7 +19,6 @@ exports.get_all_contests = (req,res) => {
     let page = parseInt(req.query.page) || 0;
     Contests
         .find()
-        .select({works: 0, admin: 0})
         .sort({created_date: -1})
         .skip(page*limit)
         .limit(limit)
@@ -94,7 +93,7 @@ exports.get_my_contests = (req, res) => {
 
 exports.get_contest_by_id = (req, res) => {
     Contests
-        .findOne({_id: req.params["contestId"]})
+        .findById(req.params["contestId"])
         .populate("works")
         .exec()
         .then(contest => {
@@ -102,7 +101,7 @@ exports.get_contest_by_id = (req, res) => {
             else {
                 if (contest.finish_date < Date.now() && contest.winner === null){
                     contest.winner = (contest.works.sort((work1, work2) => work2.likes.length - work1.likes.length))[0]._id;
-                    contest.save((err) =>{
+                    contest.save((err, contest) => {
                         if (err) throw "save error";
                         else sendContest(res, contest);
                     });
@@ -130,7 +129,7 @@ exports.edit_contest = (req, res) => {
     if (!req.user) res.sendStatus(401);
     else {
         Contests
-            .findOne({_id: req.params["contestId"]})
+            .findById(req.params["contestId"])
             .exec()
             .then(contest => {
                 if (contest === null) res.sendStatus(404);
@@ -162,7 +161,7 @@ exports.set_pic = (req, res) => {
     if (!req.user) res.sendStatus(401);
     else {
         Contests
-            .findOne({_id: req.params["contestId"]})
+            .findById(req.params["contestId"])
             .exec()
             .then(contest => {
                 if (contest === null) res.sendStatus(404);
@@ -223,7 +222,7 @@ exports.add_work = (req,res) => {
                                     let workID = guid.raw();
                                     let workExt = mime.extension(contest_image.mimetype);
                                     let mvUrl = path.join("works", contest_type, req.params["contestId"], `${workID}.${workExt}`);
-                                    work_data.mv(path.join(__basedir, "public", mvUrl), function (err) {
+                                    work_data.mv(path.join(__basedir, "public", mvUrl),  (err) => {
                                         if (err) throw 'save error';
                                         else {
                                             let work = new Works({
@@ -234,7 +233,7 @@ exports.add_work = (req,res) => {
                                                 contest: req.params["contestId"],
                                                 work_url: `/works/${contest_type}/${workID}.${workExt}`
                                             });
-                                            work.save((err, work)=>{
+                                            work.save((err, work) => {
                                                 if (err) throw "save err";
                                                 Contests
                                                     .findOneAndUpdate({_id: contest._id}, {$push: {works: work._id}})

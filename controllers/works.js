@@ -18,7 +18,7 @@ exports.get_my_works = (req, res) => {
 
 exports.get_work = (req, res) => {
     Works
-        .findOne({_id: req.params["workId"]})
+        .findById(req.params["workId"])
         .exec()
         .then(work => {
             if (work === null) res.sendStatus(404);
