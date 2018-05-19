@@ -1,12 +1,22 @@
 {
   "database":{
     "uri": "mongodb://contestuser:contestpassword123@ds139219.mlab.com:39219/contestmanager",
-    "uri-local": "mongodb://localhost:27017/contest"
+    "uri-local": "mongodb://localhost:27017/contestmanager"
   },
   "vk":{
     "app_id": "6435362",
     "secret": "VnuYUhtdZM6geLBbIGsX",
     "callback": "http://contest-manager-nti.herokuapp.com/auth/vkontakte/callback",
     "callback-local": "http://localhost:3000/auth/vkontakte/callback"
+  },
+  "types":{
+    "image": {
+      "extensions": ["jpg", "png"],
+      "mimes": ["image/jpeg", "image/png"]
+    },
+    "text": {
+      "extensions": ["txt", "pdf"],
+      "mimes": ["text/plain", "application/pdf"]
+    }
   }
 }

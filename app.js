@@ -6,6 +6,10 @@ nconf.argv()
     .env()
     .file({ file: './config.json' });
 
+
+global.__basedir = __dirname;
+global.__databaseUri = process.argv.indexOf("--local") > -1 ? nconf.get("database:uri-local") : nconf.get("database:uri");
+
 require("./boot")(app);
 require("./routes")(app);
 

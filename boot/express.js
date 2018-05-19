@@ -1,17 +1,16 @@
 let expressSession = require('express-session');
 let mongoose = require("mongoose");
-var favicon = require('serve-favicon');
+let favicon = require('serve-favicon');
 let MongoStore = require('connect-mongo')(expressSession);
 let passport = require("passport");
 let nconf = require("nconf");
 let autoIncrement = require('mongoose-auto-increment');
 let bodyParser = require('body-parser');
 let express = require('express');
+let fileUpload = require('express-fileupload');
 
 module.exports = function (app) {
-    let databaseUri = process.argv.indexOf("--local") > -1 ? nconf.get("database:uri-local") : nconf.get("database:uri");
-
-    mongoose.connect(databaseUri);
+    mongoose.connect(global.__databaseUri);
     autoIncrement.initialize(mongoose.connection);
 
     app.use(expressSession({
@@ -23,8 +22,11 @@ module.exports = function (app) {
 
     app.use(passport.initialize());
     app.use(passport.session());
+
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended:true}));
+    app.use(fileUpload());
+
     app.use(express.static('public'));
     app.use(favicon("./public/favicon.ico"));
 };

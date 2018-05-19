@@ -9,6 +9,8 @@ const ContestSchema = new mongoose.Schema({
     works: [{ type: Number, ref: 'Work' }],
     name: {type: String, required: true},
     description: String,
+    contest_image: {type:String, required: true},
+    contest_type: String,
     created_date: {type: Date, default: Date.now},
     start_date: {type: Date, required: true},
     finish_date: {type:Date, required: true},
