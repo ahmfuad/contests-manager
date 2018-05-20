@@ -73,11 +73,15 @@ exports.add_like = (req, res) => {
                 if (work === null) res.sendStatus(404);
                 else{
                     if (!(req.user._id in work.likes) && work.contest.finish_date > Date.now() && work.author !== req.user._id){
-                        work.likes.push(req.user._id);
-                        work.save((err)=>{
-                            if (err) res.sendStatus(500);
-                            else res.sendStatus(200);
-                        });
+                        Works
+                            .update(
+                                {_id: req.params["workId"]},
+                                {$addToSet: {likes: req.user._id}},
+                                (err, raw) => {
+                                    if (err) throw "db err";
+                                    else res.sendStatus(200);
+                                }
+                            );
                     }
                     else{
                         res.sendStatus(400);
@@ -87,7 +91,6 @@ exports.add_like = (req, res) => {
             .catch(err=>{
                 res.sendStatus(500);
             })
-
     }
 };
 
@@ -102,11 +105,15 @@ exports.delete_like = (req, res) => {
                 if (work === null) res.sendStatus(404);
                 else{
                     if ((req.user._id in work.likes) && work.contest.finish_date > Date.now()){
-                        work.likes = work.likes.filter(userId => userId !== req.user._id);
-                        work.save((err)=>{
-                            if (err) res.sendStatus(500);
-                            else res.sendStatus(200);
-                        });
+                        Works
+                            .update(
+                                {_id: req.params["workId"]},
+                                {$pull: {likes: req.user._id}},
+                                (err, raw) => {
+                                    if (err) throw "db err";
+                                    else res.sendStatus(200);
+                                }
+                            );
                     }
                     else{
                         res.sendStatus(400);
