@@ -7,9 +7,42 @@
 .navbar-brand{
     font-size: 32px;
 }
-.container{
+.container-fluid{
     background-color: #03A9F4;
     height: 100px;
+}
+.sendContests{
+    margin-top: 25px;
+    margin-left: 43%;
+}
+.contest{
+    margin-bottom: 30px;
+}
+.nameContest{
+    height: 40px;
+    background-color: slategrey ;
+    text-align: center;
+    font-size: 24px;
+    color:#ffffff;
+}
+.contentContest{
+    background-color: lightgray;
+    height: 150px;
+}
+.timeContest{
+    height: 40px;
+    background-color: slategrey ;
+    text-align: center;
+    font-size: 24px;
+    color:#ffffff;
+}
+.footer{
+    height:50px;
+    background-color:#0288D1;
+
+}
+.footer span{
+    color: #ffffff;
 }
 @media (max-width: 575.98px) {
 
@@ -28,8 +61,4 @@
 }
 
 @media (min-width: 1200px) {
-    .container{
-        width: 100%;
-
-    }
 }
