@@ -15,10 +15,21 @@ function contest_image_check(contest_image){
 //endregion
 
 //region Exports
-exports.get_all_contests = (req,res) => {
+exports.get_all_contests = (req, res) => {
+    let only_finished = req.body["only_finished"] || false;
+    let query = req.body["query"] || undefined;
+    let type = req.body["type"] || undefined;
+        let config_types = nconf.get("types");
+        if (!!type || !(type in config_types)) type = undefined;
+
+    let conditions = {};
+    if (only_finished) conditions.finish_date = {$lt: Date.now()};
+    if (type) conditions.type = type;
+    if (query) conditions.name = {$regex: query, $options: "i"};
+
     let page = parseInt(req.query.page) || 0;
     Contests
-        .find()
+        .find(conditions)
         .sort({created_date: -1})
         .skip(page*limit)
         .limit(limit)
@@ -30,7 +41,6 @@ exports.get_all_contests = (req,res) => {
             res.sendStatus(500)
         });
 };
-//TODO поиск по имени и статусу завершенности
 
 exports.add_contest = (req, res) => {
     if (!req.user) res.sendStatus(401);
